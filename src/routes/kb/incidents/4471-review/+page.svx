@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 review: two distinct date problems'
 owner: Mark Young and Codex
-status: investigated
+status: resolved
 reviewed: '2026-10-28'
 signature: 'Mark Young / Codex / S01E03 / 2026-10-28'
 ---
@@ -48,6 +48,15 @@ The triage prose and accepted decision 0001 date to June 2024. The runbook flags
 <DedupeExplorer />
 
 Different subjects can describe the same cause; identical subjects can hide different paths. Merge only after checking tenant, channel, form, locale, and symptoms. Unknown tenants and timing anomalies remain unclassified pending investigation. Preserve accepted decision 0001 as history; a new decision should supersede it rather than rewrite it. The explorer is useful evidence, but its classifier still misses the timing reports.
+
+## Engineering outcome — October 5
+
+The [course desk update](https://hq.mega.dev/challenges/what-it-shows#engineering-update) supersedes the export's queued-fix status: #4471 closed on October 5.
+
+- Parser: **fixed**, `fix(dates): parse dd/mm for eu locales`. Ticket 1 is closed as completed.
+- Hint: **won’t fix**, because **booking-v3 form retired**. Ticket 2 is closed as not planned; retirement is not a delivered hint fix.
+
+These are engineering outcomes reported by the desk, not changes made in this review repository. The export counts remain historical. The five timing observations remain caveats because neither the exported classifier nor this update demonstrates their specific root cause.
 
 ## Desk handoff
 
