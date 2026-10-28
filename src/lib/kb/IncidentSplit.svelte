@@ -5,10 +5,8 @@
  import {tenantOf} from '#lib/kb/locales';
  const rs=uniqueById(reports as Report[]).filter(r=>r.mergedInto===4471);
  const groups=[
-  {name:'Month-first shared parser',key:'parser',rs:rs.filter(r=>!notes.oneDayMove.includes(r.id)&&causeOf(r,tenantOf(r))==='parser')},
-  {name:'booking-v3 date hint contradicts locale',key:'hint',rs:rs.filter(r=>!notes.oneDayMove.includes(r.id)&&causeOf(r,tenantOf(r))==='hint')},
-  {name:'One-day shifts — cause unconfirmed',key:'timing',rs:rs.filter(r=>notes.oneDayMove.includes(r.id)&&r.id!=='R-41236')},
-  {name:'Invite before booking — chronology unconfirmed',key:'chronology',rs:rs.filter(r=>r.id==='R-41236')}
+  {name:'Month-first shared parser',key:'parser',rs:rs.filter(r=>causeOf(r,tenantOf(r))==='parser')},
+  {name:'booking-v3 date hint contradicts locale',key:'hint',rs:rs.filter(r=>causeOf(r,tenantOf(r))==='hint')}
  ];
  const july=rs.filter(r=>r.mergedAt?.slice(0,10)==='2026-07-02');
 </script>
@@ -18,4 +16,4 @@
 </tbody></table>
 <p>{july.length} reports were merged on July 2; {july.filter(r=>r.receivedAt.slice(0,10)<'2026-07-02').length} had arrived earlier. Merge time measures desk activity, not when the problem began.</p>
 <h3>Reports the current classifier hides</h3>
-<ul>{#each groups.slice(2).flatMap(g=>g.rs) as r}<li><strong>{r.id}</strong> · {r.tenant} · {r.channel}: {r.body}</li>{/each}</ul>
+<ul>{#each rs.filter(r=>notes.oneDayMove.includes(r.id)) as r}<li><strong>{r.id}</strong> · {r.tenant} · {r.channel}: {r.body}</li>{/each}</ul>

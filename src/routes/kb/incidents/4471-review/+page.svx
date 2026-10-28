@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 review: two date paths and an unresolved timing problem'
+title: '#4471 review: two distinct date problems'
 owner: Mark Young and Codex
 status: investigated
 reviewed: '2026-10-28'
@@ -15,7 +15,7 @@ signature: 'Mark Young / Codex / S01E03 / 2026-10-28'
  import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-The exported incident says “one issue, one fix queued.” Its rendered views disagree: two mechanisms share one ticket. Reading the report bodies also exposes two smaller unresolved problems: one-day display shifts and event chronology. A queued parser fix does not establish that either other problem is fixed.
+The exported incident says “one issue, one fix queued.” Its rendered views disagree: two mechanisms share one ticket. Five report bodies include timing observations that the classification does not explain; these remain caveats, not demonstrated additional causes. A queued parser fix does not establish that either other problem is fixed.
 
 ## Scope and evidence
 
@@ -27,13 +27,13 @@ This review uses the October 4 export, not a live support queue. Deduplicate by 
 
 <CauseTable ticket={4471} />
 
-The existing classifier assigns the five timing reports to parser by tenant and channel. That explains its larger parser total; it is not evidence that a month/day parser caused a one-day shift. The table's 379 parser and 33 hint reports are the original computed classification; the split above reserves five of those 379 for investigation. Do not add the two presentations together.
+The existing classifier assigns five reports flagged by the desk as one-day moves to parser by tenant and channel. The accepted tickets cover 379 parser reports and 33 hint reports, without overlap. These five reports are included in 379; a count is not proof that the parser caused every symptom. Preserve the original bodies and verify them during investigation.
 
 ## Separate fixes and verification
 
 - Shared parser: parse the tenant's date format consistently. A day-first date such as 07/04 must mean 7 April, not July 4. Test app, email, and booking-v2 form paths; verify the full day-first tenant directory.
 - booking-v3 hint: display the date order expected by its locale-aware form parser. Its MM/DD/YYYY hint induces month-first input in day-first tenants. Test Alder Physio, Copper Studio, and Pale Harbour. Fixing the shared parser alone leaves this path wrong.
-- Timing anomalies: investigate the four one-day report bodies independently. A timezone or date-only conversion is a hypothesis, not a demonstrated cause. Reproduce Lisbon/Toronto display and invite-versus-calendar day differences; inspect original payloads, zones, and event timestamps. The separate report R-41236 about an invite preceding its booking needs event-order and timestamp evidence; it has its own ticket.
+- Timing anomalies: investigate the four one-day report bodies independently. A timezone or date-only conversion is a hypothesis, not a demonstrated cause. Reproduce Lisbon/Toronto display and invite-versus-calendar day differences; inspect original payloads, zones, and event timestamps. R-41236 reports an invite preceding its booking and also needs event-order evidence. These observations remain attached to the parser group pending evidence; no extra cause is asserted.
 
 ## Received is not merged
 
@@ -51,6 +51,6 @@ Different subjects can describe the same cause; identical subjects can hide diff
 
 ## Desk handoff
 
-The accompanying GitHub issues give counts, affected paths, example report IDs, and verification steps. Refresh this review against new queue data before treating its counts as current. Keep unresolved reports visible instead of letting the “known” label close investigation.
+The course accepted two GitHub issues: [parser, 379 reports](https://github.com/markyoungdev/mega-s01e03-what-it-shows/issues/1) and [booking-v3 hint, 33 reports](https://github.com/markyoungdev/mega-s01e03-what-it-shows/issues/2). They give affected paths, examples, and verification steps. Refresh this review against new queue data before treating its counts as current. Keep unresolved reports visible instead of letting the “known” label close investigation.
 
 <RenderStamp {signature} />
