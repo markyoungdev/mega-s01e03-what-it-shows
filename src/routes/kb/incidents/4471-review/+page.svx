@@ -15,7 +15,7 @@ signature: 'Mark Young / Codex / S01E03 / 2026-10-28'
  import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-The exported incident says “one issue, one fix queued.” Its rendered views disagree: two mechanisms share one ticket. Reading the report bodies also exposes a smaller unresolved timing problem. A queued parser fix does not establish that either other problem is fixed.
+The exported incident says “one issue, one fix queued.” Its rendered views disagree: two mechanisms share one ticket. Reading the report bodies also exposes two smaller unresolved problems: one-day display shifts and event chronology. A queued parser fix does not establish that either other problem is fixed.
 
 ## Scope and evidence
 
@@ -33,7 +33,7 @@ The existing classifier assigns the five timing reports to parser by tenant and 
 
 - Shared parser: parse the tenant's date format consistently. A day-first date such as 07/04 must mean 7 April, not July 4. Test app, email, and booking-v2 form paths; verify the full day-first tenant directory.
 - booking-v3 hint: display the date order expected by its locale-aware form parser. Its MM/DD/YYYY hint induces month-first input in day-first tenants. Test Alder Physio, Copper Studio, and Pale Harbour. Fixing the shared parser alone leaves this path wrong.
-- Timing anomalies: investigate the five report bodies independently. A timezone or date-only conversion is a hypothesis, not a demonstrated cause. Reproduce Lisbon/Toronto display and invite-versus-calendar day differences; inspect original payloads, zones, and event timestamps. The report about an invite preceding its booking also needs timestamp evidence.
+- Timing anomalies: investigate the four one-day report bodies independently. A timezone or date-only conversion is a hypothesis, not a demonstrated cause. Reproduce Lisbon/Toronto display and invite-versus-calendar day differences; inspect original payloads, zones, and event timestamps. The separate report R-41236 about an invite preceding its booking needs event-order and timestamp evidence; it has its own ticket.
 
 ## Received is not merged
 
