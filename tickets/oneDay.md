@@ -27,4 +27,4 @@ Preserve these four reports as a separate investigation. Confirm whether they sh
 
 Source: src/lib/data/reports-4471.json; tenant directory; src/lib/kb/causes.ts; desk-notes.json. Exact assigned IDs: R-41202, R-41209, R-41344, R-41620
 
-KB review: src/routes/kb/incidents/4471-review/+page.svx; rendered page: dist/kb/incidents/4471-review/index.html. Desk ref: DR-7XQQ-8JB5.
+KB review: src/routes/kb/incidents/4471-review/+page.svx; rendered page: dist/kb/incidents/4471-review/index.html. Desk ref: DR-M7V8-3JDN.

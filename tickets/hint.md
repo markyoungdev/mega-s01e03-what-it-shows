@@ -25,7 +25,7 @@ Deduplicate the export by report ID, then select #4471 and the booking-v3 form p
 
 Source: src/lib/kb/causes.ts, src/lib/kb/locales.ts, src/lib/data/tenants/, src/lib/data/reports-4471.json. CauseTable computes this group at render time.
 
-KB review: src/routes/kb/incidents/4471-review/+page.svx; rendered page: dist/kb/incidents/4471-review/index.html. Desk ref: DR-7XQQ-8JB5.
+KB review: src/routes/kb/incidents/4471-review/+page.svx; rendered page: dist/kb/incidents/4471-review/index.html. Desk ref: DR-M7V8-3JDN.
 
 ## Resolution
 

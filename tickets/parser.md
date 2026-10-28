@@ -27,7 +27,7 @@ Source: src/lib/kb/causes.ts, src/lib/kb/locales.ts, src/lib/data/tenants/, src/
 
 Five reports in this group are flagged in desk-notes.json as one-day moves: R-41202, R-41209, R-41236, R-41344, R-41620. Their symptoms deserve investigation; the tenant/channel classifier does not establish their root cause.
 
-KB review: src/routes/kb/incidents/4471-review/+page.svx; rendered page: dist/kb/incidents/4471-review/index.html. Desk ref: DR-7XQQ-8JB5.
+KB review: src/routes/kb/incidents/4471-review/+page.svx; rendered page: dist/kb/incidents/4471-review/index.html. Desk ref: DR-M7V8-3JDN.
 
 ## Resolution
 
