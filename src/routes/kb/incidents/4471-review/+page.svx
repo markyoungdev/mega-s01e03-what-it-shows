@@ -4,7 +4,7 @@ title: '#4471 review: two distinct date problems'
 owner: Mark Young and Codex
 status: resolved
 reviewed: '2026-10-28'
-signature: 'Mark Young / Codex / S01E03 / 2026-10-28'
+signature: 'v1.eyJzdWIiOiI0MzQyIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyMTI0MzAsImV4cCI6MTc5MzI5ODgzMH0.YpkzKukmTdRddw2kdogll63JJlR6D1VoPu0rv5JzUFE'
 ---
 
 <script>
