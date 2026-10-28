@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import {causeOf, uniqueById, groupByCause} from '../src/lib/kb/causes.ts';
+const raw=JSON.parse(fs.readFileSync('src/lib/data/reports-4471.json'));
+const reports=uniqueById(raw).filter(r=>r.mergedInto===4471);
+const tenants=fs.readdirSync('src/lib/data/tenants').map(f=>JSON.parse(fs.readFileSync('src/lib/data/tenants/'+f)));
+const tenantOf=r=>tenants.find(t=>t.handle===r.tenant);
+const notes=JSON.parse(fs.readFileSync('src/lib/data/desk-notes.json'));
+const groups=groupByCause(reports,tenantOf);
+const split={parser:[],hint:[],oneDay:[]};
+for(const r of reports) split[notes.oneDayMove.includes(r.id)?'oneDay':causeOf(r,tenantOf(r))].push(r);
+console.log(JSON.stringify({rows:raw.length,unique:reports.length,rendered:groups.map(g=>({...g,reports:g.reports.length})),split:Object.fromEntries(Object.entries(split).map(([k,v])=>[k,{count:v.length,first:v[0],last:v.at(-1),ids:v.map(r=>r.id)}]))},null,2));

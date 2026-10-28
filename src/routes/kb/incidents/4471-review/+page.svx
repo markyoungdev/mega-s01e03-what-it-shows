@@ -1,0 +1,56 @@
+---
+layout: runbook
+title: '#4471 review: two date paths and an unresolved timing problem'
+owner: Mark Young and Codex
+status: investigated
+reviewed: '2026-10-28'
+signature: 'Mark Young / Codex / S01E03 / 2026-10-28'
+---
+
+<script>
+ import IncidentSplit from '#lib/kb/IncidentSplit.svelte';
+ import CauseTable from '#lib/kb/CauseTable.svelte';
+ import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+ import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+ import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+The exported incident says “one issue, one fix queued.” Its rendered views disagree: two mechanisms share one ticket. Reading the report bodies also exposes a smaller unresolved timing problem. A queued parser fix does not establish that either other problem is fixed.
+
+## Scope and evidence
+
+This review uses the October 4 export, not a live support queue. Deduplicate by report ID before counting. Tenant locale and booking form determine the date path; browser locale and intake tags are guesses. The source functions live in `src/lib/kb/causes.ts`, the directory in `src/lib/data/tenants/`, and exceptional report IDs in `src/lib/data/desk-notes.json`.
+
+<IncidentSplit />
+
+## What the existing page actually shows
+
+<CauseTable ticket={4471} />
+
+The existing classifier assigns the five timing reports to parser by tenant and channel. That explains its larger parser total; it is not evidence that a month/day parser caused a one-day shift. The table's 379 parser and 33 hint reports are the original computed classification; the split above reserves five of those 379 for investigation. Do not add the two presentations together.
+
+## Separate fixes and verification
+
+- Shared parser: parse the tenant's date format consistently. A day-first date such as 07/04 must mean 7 April, not July 4. Test app, email, and booking-v2 form paths; verify the full day-first tenant directory.
+- booking-v3 hint: display the date order expected by its locale-aware form parser. Its MM/DD/YYYY hint induces month-first input in day-first tenants. Test Alder Physio, Copper Studio, and Pale Harbour. Fixing the shared parser alone leaves this path wrong.
+- Timing anomalies: investigate the five report bodies independently. A timezone or date-only conversion is a hypothesis, not a demonstrated cause. Reproduce Lisbon/Toronto display and invite-versus-calendar day differences; inspect original payloads, zones, and event timestamps. The report about an invite preceding its booking also needs timestamp evidence.
+
+## Received is not merged
+
+<QueueTimeline ticket={4471} />
+
+The problem was reported in April. July's merge spike reflects backlog consolidation. Continue tracking arrivals separately from desk merges, and monitor the unresolved timing reports through the October 4 report; the export cannot establish what happened after that date.
+
+## Replace subject-only deduplication
+
+The triage prose and accepted decision 0001 date to June 2024. The runbook flags pages older than 180 days as stale. Meanwhile, the executable explorer already compares causes:
+
+<DedupeExplorer />
+
+Different subjects can describe the same cause; identical subjects can hide different paths. Merge only after checking tenant, channel, form, locale, and symptoms. Unknown tenants and timing anomalies remain unclassified pending investigation. Preserve accepted decision 0001 as history; a new decision should supersede it rather than rewrite it. The explorer is useful evidence, but its classifier still misses the timing reports.
+
+## Desk handoff
+
+The accompanying GitHub issues give counts, affected paths, example report IDs, and verification steps. Refresh this review against new queue data before treating its counts as current. Keep unresolved reports visible instead of letting the “known” label close investigation.
+
+<RenderStamp {signature} />
