@@ -21,8 +21,8 @@ Use a locale-correct hint and ensure displayed examples agree with form parsing.
 
 ## Counting and provenance
 
-427 exported rows collapse to 412 unique IDs. This partition is 374 parser + 33 hint + 5 unresolved timing = 412. The unchanged existing CauseTable shows 379 parser + 33 hint because it includes the five timing exceptions under parser. Intake tags alone produce 371/41 and are not causal evidence.
+Deduplicate the export by report ID, then select #4471 and the booking-v3 form path in day-first tenants. This group has 33 unique report IDs across three tenants, first seen 2026-04-17 and last seen 2026-09-22. Browser locale is not tenant locale: 15 of these reports have an incorrect intake tag.
 
-Source: src/lib/data/reports-4471.json; tenant directory; src/lib/kb/causes.ts; desk-notes.json. Exact assigned IDs: R-41230, R-41241, R-41251, R-41259, R-41262, R-41275, R-41294, R-41305, R-41308, R-41366, R-41372, R-41384, R-41387, R-41396, R-41400, R-41406, R-41415, R-41416, R-41418, R-41428, R-41439, R-41441, R-41449, R-41453, R-41456, R-41460, R-41472, R-41485, R-41493, R-41539, R-41572, R-41582, R-41584
+Source: src/lib/kb/causes.ts, src/lib/kb/locales.ts, src/lib/data/tenants/, src/lib/data/reports-4471.json. CauseTable computes this group at render time.
 
 KB review: src/routes/kb/incidents/4471-review/+page.svx; rendered page: dist/kb/incidents/4471-review/index.html. Desk ref: DR-7XQQ-8JB5.
